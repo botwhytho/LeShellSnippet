@@ -78,13 +78,17 @@ LeShellSnippetElement2 >> newCoder [
 
 { #category : #'api - snippet view model' }
 LeShellSnippetElement2 >> onSnippetViewModelChanged [
-	| snippetsInPage |
+	| snippetsInPage page |
 	super onSnippetViewModelChanged.
-	snippetsInPage := (self snippetViewModel snippetModel page children
-		items select: [ :each | each isKindOf: LeShellSnippet2 ]) size.
+	page := self snippetViewModel snippetModel page.
+	snippetsInPage := page
+		ifNil: [ 1 ]
+		ifNotNil: [ :aPage | 
+			(aPage children items
+				select: [ :each | each isKindOf: LeShellSnippet2 ]) size ].
 	self snippetViewModel
-		result: (self snippetToolbar query // #resultBinding) anyOne.
-	self snippetViewModel result
+		resultVariable: (self snippetToolbar query // #resultBinding) anyOne.
+	self snippetViewModel resultVariable
 		text: 'leShell' , snippetsInPage asString.
 	self snippetViewModel
 		workingDirectory: (self snippetToolbar query // #directoryPicker) anyOne

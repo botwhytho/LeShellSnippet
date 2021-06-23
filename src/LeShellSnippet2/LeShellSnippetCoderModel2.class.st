@@ -42,7 +42,10 @@ LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 	addOns
 		addMainAction: 'Help' translated
 		icon: BrGlamorousVectorIcons question
-		action: [ :aCoderUIModel :anEvent | Halt now. ]
+		action: [ :aCoderUIModel :anEvent | 
+			Halt now.
+			"(aCoderUIModel bindingStrategy bindingOf: #thisSnippetViewModel)
+				value snippetModel asPreviewElement requestFocus" ]
 		id: LeShellSnippetCoderModelHelpActionId
 ]
 
@@ -76,7 +79,7 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 	aGtPharoCoderEvaluationContext
 		bindingAt:
 			(aGtPharoCoderEvaluationContext bindingOf: #thisSnippetViewModel)
-				value result text asString asSymbol
+				value resultVariable text asString asSymbol
 		put: shellCommandResult.
 	"self asCoderUIModel get to some button label to bind. If lable changes react"
 	^ shellCommandResult

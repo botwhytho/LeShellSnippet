@@ -2,8 +2,8 @@ Class {
 	#name : #LeShellSnippetViewModel2,
 	#superclass : #LePharoSnippetViewModel,
 	#instVars : [
-		'result',
-		'workingDirectory'
+		'workingDirectory',
+		'resultVariable'
 	],
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
@@ -14,13 +14,13 @@ LeShellSnippetViewModel2 >> initialize [
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> result [
-	^ result
+LeShellSnippetViewModel2 >> resultVariable [
+	^ resultVariable
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> result: aBrEditableLable [
-	result := aBrEditableLable
+LeShellSnippetViewModel2 >> resultVariable: aBrEditableLable [
+	resultVariable := aBrEditableLable
 ]
 
 { #category : #accessing }

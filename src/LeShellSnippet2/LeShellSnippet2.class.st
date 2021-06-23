@@ -4,10 +4,28 @@ Class {
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
 
+{ #category : #'lepiter-store' }
+LeShellSnippet2 class >> leJsonV3AttributeMapping [
+	^ super leJsonV3AttributeMapping
+		"Need to map down from the viewmodel"
+		"add: #resultVariable -> #resultVariable;
+		add: #workingDirectory -> #workingDirectory;
+		yourself"
+]
+
 { #category : #accessing }
 LeShellSnippet2 class >> leJsonV3Name [
 
 	^ 'shellSnippet2'
+]
+
+{ #category : #'lepiter-store' }
+LeShellSnippet2 class >> leJsonV4AttributeMapping [
+	^ super leJsonV4AttributeMapping
+		"Need to map down from the viewmodel"
+		"add: #resultVariable -> #resultVariable;
+		add: #workingDirectory -> #workingDirectory;
+		yourself"
 ]
 
 { #category : #accessing }
