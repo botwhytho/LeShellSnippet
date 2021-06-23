@@ -4,6 +4,13 @@ Class {
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
 
+{ #category : #initialization }
+LeShellSnippetCoderModel2 >> initialize [
+	super initialize.
+	"self traceCr."
+	Halt now.
+]
+
 { #category : #'UI specific' }
 LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 	addOns addStyler: GtPharoStyler new.
@@ -37,7 +44,7 @@ LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 	addOns
 		addMainAction: 'Help' translated
 		icon: BrGlamorousVectorIcons question
-		action: [ :aCoderUIModel :anEvent | self inform: 'This is a test' ]
+		action: [ :aCoderUIModel :anEvent | Halt now. ]
 		id: LeShellSnippetCoderModelHelpActionId
 ]
 

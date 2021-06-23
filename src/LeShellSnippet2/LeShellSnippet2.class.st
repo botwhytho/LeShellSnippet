@@ -16,6 +16,17 @@ LeShellSnippet2 class >> leJsonV4Name [
 	^ 'shellSnippet2'
 ]
 
+{ #category : #converting }
+LeShellSnippet2 >> asPreviewElement [
+	| viewModel snippetElement |
+
+	viewModel := self asSnippetViewModel.
+	snippetElement := viewModel snippetView asElement.
+	snippetElement snippetViewModel: viewModel.
+	snippetElement padding: (BlInsets all: 10).
+	^ snippetElement
+]
+
 { #category : #accessing }
 LeShellSnippet2 >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
@@ -31,6 +42,13 @@ LeShellSnippet2 >> contextMenuItemSpecification [
 		priority: 20;
 		snippetClass: self;
 		title: 'Shell2'
+]
+
+{ #category : #initialization }
+LeShellSnippet2 >> initialize [
+	super initialize.
+	"self traceCr."
+	Halt now.
 ]
 
 { #category : #initialization }

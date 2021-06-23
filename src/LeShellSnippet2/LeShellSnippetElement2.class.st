@@ -7,8 +7,9 @@ Class {
 { #category : #initialization }
 LeShellSnippetElement2 >> initialize [
 	super initialize.
-	"Halt now."
+	"self traceCr."
 	coderToolbar addChild: self settingsToolbar at: 3 as: #settings.
+	Halt now.
 ]
 
 { #category : #initialization }
@@ -44,10 +45,11 @@ LeShellSnippetElement2 >> initializeDirectoryPicker [
 { #category : #initialization }
 LeShellSnippetElement2 >> initializeResultBinding [
 	| label shellSnippetsInPage |
-	shellSnippetsInPage := (thisContext stack
+	"shellSnippetsInPage := (thisContext stack
 		detect: [ :each | each contextClass = LePageToolContentTreeElement ])
 		receiver snippetsViewModel children
-		sum: [ :each | (each isKindOf: LeShellSnippetViewModel2) asBit ].
+		sum: [ :each | (each isKindOf: LeShellSnippetViewModel2) asBit ]."
+	shellSnippetsInPage := 123.
 	label := BrEditableLabel new.
 	label
 		id: #resultBinding;
