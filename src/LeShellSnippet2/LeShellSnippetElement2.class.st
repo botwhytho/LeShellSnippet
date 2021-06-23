@@ -80,12 +80,6 @@ LeShellSnippetElement2 >> newCoder [
 LeShellSnippetElement2 >> onSnippetViewModelChanged [
 	| snippetsInPage |
 	super onSnippetViewModelChanged.
-	"self snippetViewModel coderViewModel bindingStrategy bindings
-		localAt: #thisSnippetViewModel
-		put: self snippetViewModel.
-	self snippetViewModel coderViewModel bindingStrategy bindings
-		localAt: #thisSnippet
-		put: self snippetViewModel snippetModel."
 	snippetsInPage := (self snippetViewModel snippetModel page children
 		items select: [ :each | each isKindOf: LeShellSnippet2 ]) size.
 	self snippetViewModel
