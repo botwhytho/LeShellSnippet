@@ -47,8 +47,6 @@ LeShellSnippet2 >> contextMenuItemSpecification [
 { #category : #initialization }
 LeShellSnippet2 >> initialize [
 	super initialize.
-	"self traceCr."
-	"Halt now."
 ]
 
 { #category : #initialization }

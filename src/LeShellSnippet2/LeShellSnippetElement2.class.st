@@ -7,9 +7,7 @@ Class {
 { #category : #initialization }
 LeShellSnippetElement2 >> initialize [
 	super initialize.
-	"self traceCr."
-	coderToolbar addChild: self settingsToolbar at: 3 as: #settings.
-	"Halt now."
+	coderToolbar addChild: self settingsToolbar at: 3 as: #settings
 ]
 
 { #category : #initialization }
@@ -82,11 +80,20 @@ LeShellSnippetElement2 >> newCoder [
 LeShellSnippetElement2 >> onSnippetViewModelChanged [
 	| snippetsInPage |
 	super onSnippetViewModelChanged.
-	Halt now.
+	"self snippetViewModel coderViewModel bindingStrategy bindings
+		localAt: #thisSnippetViewModel
+		put: self snippetViewModel.
+	self snippetViewModel coderViewModel bindingStrategy bindings
+		localAt: #thisSnippet
+		put: self snippetViewModel snippetModel."
 	snippetsInPage := (self snippetViewModel snippetModel page children
 		items select: [ :each | each isKindOf: LeShellSnippet2 ]) size.
-	(self snippetToolbar query // #resultBinding) anyOne
-		text: 'leShell' , snippetsInPage asString
+	self snippetViewModel
+		result: (self snippetToolbar query // #resultBinding) anyOne.
+	self snippetViewModel result
+		text: 'leShell' , snippetsInPage asString.
+	self snippetViewModel
+		workingDirectory: (self snippetToolbar query // #directoryPicker) anyOne
 	"TODO: If serialized snippet has a value, retain that, otherwise pre-populate like above"
 ]
 

@@ -7,8 +7,6 @@ Class {
 { #category : #initialization }
 LeShellSnippetCoderModel2 >> initialize [
 	super initialize.
-	"self traceCr."
-	"Halt now."
 ]
 
 { #category : #'UI specific' }
@@ -62,11 +60,10 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 				ifNil: [ #() ]
 				ifNotNil: [ {aGtPharoCoderEvaluationContext runtimeContext} ])
 		executeMethod: aCompiledMethodToEvaluate.
-	Halt now.
 	aCompiledMethodToEvaluate := self
 		primitiveAnonymousCompile:
 			'RunInShell new
-		workingDirectory: (thisSnippet asSnippetViewModel snippetView asElement query // #directoryPicker) anyOne label asString;
+		workingDirectory: thisSnippetViewModel workingDirectory label asString;
 		command: (''' , pharoEvaluationResult asString , ''')'
 		inContext: aGtPharoCoderEvaluationContext
 		onFailDo: [ ^ anEvaluationFailBlock value ].
@@ -78,9 +75,8 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 		executeMethod: aCompiledMethodToEvaluate.
 	aGtPharoCoderEvaluationContext
 		bindingAt:
-			(((aGtPharoCoderEvaluationContext bindingOf: #thisSnippet) value
-				asSnippetViewModel snippetView asElement query // #resultBinding)
-				anyOne text asString asSymbol)
+			(aGtPharoCoderEvaluationContext bindingOf: #thisSnippetViewModel)
+				value result text asString asSymbol
 		put: shellCommandResult.
 	"self asCoderUIModel get to some button label to bind. If lable changes react"
 	^ shellCommandResult
