@@ -8,7 +8,7 @@ Class {
 LeShellSnippetViewModel2 >> initialize [
 	super initialize.
 	"self traceCr."
-	Halt now.
+	"Halt now."
 ]
 
 { #category : #accessing }

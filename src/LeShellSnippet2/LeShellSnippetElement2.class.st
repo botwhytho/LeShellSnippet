@@ -9,7 +9,7 @@ LeShellSnippetElement2 >> initialize [
 	super initialize.
 	"self traceCr."
 	coderToolbar addChild: self settingsToolbar at: 3 as: #settings.
-	Halt now.
+	"Halt now."
 ]
 
 { #category : #initialization }
@@ -18,6 +18,7 @@ LeShellSnippetElement2 >> initializeDirectoryPicker [
 	buttonElement := BrButton new
 		id: #directoryPicker;
 		aptitude: BrGlamorousButtonWithLabelAptitude;
+		"TODO: get values from serialized snippet if exists"
 		label: FileLocator imageDirectory pathString.
 	aDropdownLook := BrGlamorousWithDropdownAptitude
 		handle: [ dropdownButtonElement := BrButton new.
@@ -26,6 +27,7 @@ LeShellSnippetElement2 >> initializeDirectoryPicker [
 				aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude ]
 		content: [ BrFileSelector new
 				folder: FileLocator imageDirectory;
+				"TODO: get values from serialized snippet if exists"
 				fileFilterBlock: [ :aFile | aFile isDirectory ];
 				okAction: [ :aDirectory :aButton | 
 					aDirectory isDirectory
@@ -44,16 +46,10 @@ LeShellSnippetElement2 >> initializeDirectoryPicker [
 
 { #category : #initialization }
 LeShellSnippetElement2 >> initializeResultBinding [
-	| label shellSnippetsInPage |
-	"shellSnippetsInPage := (thisContext stack
-		detect: [ :each | each contextClass = LePageToolContentTreeElement ])
-		receiver snippetsViewModel children
-		sum: [ :each | (each isKindOf: LeShellSnippetViewModel2) asBit ]."
-	shellSnippetsInPage := 123.
+	| label |
 	label := BrEditableLabel new.
 	label
 		id: #resultBinding;
-			text: 'leShell' , shellSnippetsInPage asString;
 		inputFilter: BrTextEditorClassNameInputFilter new;
 		constraintsDo: [ :c | c minWidth: 100 ];
 		aptitude:
@@ -80,6 +76,18 @@ LeShellSnippetElement2 >> initializeResultBinding [
 { #category : #initialization }
 LeShellSnippetElement2 >> newCoder [
 	^ LeShellSnippetCoderModel2 new
+]
+
+{ #category : #'api - snippet view model' }
+LeShellSnippetElement2 >> onSnippetViewModelChanged [
+	| snippetsInPage |
+	super onSnippetViewModelChanged.
+	Halt now.
+	snippetsInPage := (self snippetViewModel snippetModel page children
+		items select: [ :each | each isKindOf: LeShellSnippet2 ]) size.
+	(self snippetToolbar query // #resultBinding) anyOne
+		text: 'leShell' , snippetsInPage asString
+	"TODO: If serialized snippet has a value, retain that, otherwise pre-populate like above"
 ]
 
 { #category : #initialization }
