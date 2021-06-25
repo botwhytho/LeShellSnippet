@@ -3,10 +3,22 @@ Class {
 	#superclass : #LePharoSnippetViewModel,
 	#instVars : [
 		'workingDirectory',
-		'resultVariable'
+		'resultVariable',
+		'resultButton',
+		'directoryButton'
 	],
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
+
+{ #category : #accessing }
+LeShellSnippetViewModel2 >> directoryButton [
+	^ directoryButton
+]
+
+{ #category : #accessing }
+LeShellSnippetViewModel2 >> directoryButton: aBrFileSelector [
+	directoryButton := aBrFileSelector
+]
 
 { #category : #initialization }
 LeShellSnippetViewModel2 >> initialize [
@@ -14,13 +26,23 @@ LeShellSnippetViewModel2 >> initialize [
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> resultVariable [
-	^ resultVariable
+LeShellSnippetViewModel2 >> resultButton [
+	^ resultButton
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> resultVariable: aBrEditableLable [
-	resultVariable := aBrEditableLable
+LeShellSnippetViewModel2 >> resultButton: aBrEditableLabel [
+	resultButton := aBrEditableLabel
+]
+
+{ #category : #accessing }
+LeShellSnippetViewModel2 >> resultVariable [
+	^ self snippetModel resultVariable
+]
+
+{ #category : #accessing }
+LeShellSnippetViewModel2 >> resultVariable: aString [
+	self snippetModel resultVariable: aString
 ]
 
 { #category : #accessing }
@@ -30,10 +52,10 @@ LeShellSnippetViewModel2 >> snippetElementClass [
 
 { #category : #accessing }
 LeShellSnippetViewModel2 >> workingDirectory [
-	^ workingDirectory
+	^ self snippetModel workingDirectory
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> workingDirectory: aBrFileSelector [
-	workingDirectory := aBrFileSelector
+LeShellSnippetViewModel2 >> workingDirectory: aString [
+	self snippetModel workingDirectory: aString
 ]

@@ -61,7 +61,9 @@ LeShellSnippetElement2 >> initializeResultBinding [
 			self inform: aWish text asString , ' has been bound'.
 			self inform: label text asString
 			"label acceptEdition"
-			"TODO: Re-bind OSSUnixSubprocess to new variable name" ];
+			"TODO: Re-bind OSSUnixSubprocess to new variable name"
+			"TODO: need to announce somewhere of this change so updated name gets serialized"
+			 ];
 		when: BrEditorCancelWish
 			do:
 				[ :aWish | "NEED anything here? aWish currentTarget fireEvent: BrDropdownHideWish new" ];
@@ -78,7 +80,7 @@ LeShellSnippetElement2 >> newCoder [
 
 { #category : #'api - snippet view model' }
 LeShellSnippetElement2 >> onSnippetViewModelChanged [
-	| snippetsInPage page |
+	| page resultName snippetsInPage |
 	super onSnippetViewModelChanged.
 	page := self snippetViewModel snippetModel page.
 	snippetsInPage := page
@@ -86,12 +88,16 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 		ifNotNil: [ :aPage | 
 			(aPage children items
 				select: [ :each | each isKindOf: LeShellSnippet2 ]) size ].
+	resultName := 'leShell' , snippetsInPage asString.
 	self snippetViewModel
-		resultVariable: (self snippetToolbar query // #resultBinding) anyOne.
-	self snippetViewModel resultVariable
-		text: 'leShell' , snippetsInPage asString.
+		resultButton: (self snippetToolbar query // #resultBinding) anyOne.
+	self snippetViewModel resultButton
+		text:
+			(self snippetViewModel resultVariable
+				ifNil: [ self snippetViewModel resultVariable: resultName.
+					resultName ]).
 	self snippetViewModel
-		workingDirectory: (self snippetToolbar query // #directoryPicker) anyOne
+		directoryButton: (self snippetToolbar query // #directoryPicker) anyOne
 	"TODO: If serialized snippet has a value, retain that, otherwise pre-populate like above"
 ]
 

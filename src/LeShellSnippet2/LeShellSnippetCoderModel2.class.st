@@ -66,7 +66,7 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 	aCompiledMethodToEvaluate := self
 		primitiveAnonymousCompile:
 			'RunInShell new
-		workingDirectory: thisSnippetViewModel workingDirectory label asString;
+		workingDirectory: thisSnippetViewModel directoryButton label asString;
 		command: (''' , pharoEvaluationResult asString , ''')'
 		inContext: aGtPharoCoderEvaluationContext
 		onFailDo: [ ^ anEvaluationFailBlock value ].
@@ -79,7 +79,7 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 	aGtPharoCoderEvaluationContext
 		bindingAt:
 			(aGtPharoCoderEvaluationContext bindingOf: #thisSnippetViewModel)
-				value resultVariable text asString asSymbol
+				value resultButton text asString asSymbol
 		put: shellCommandResult.
 	"self asCoderUIModel get to some button label to bind. If lable changes react"
 	^ shellCommandResult

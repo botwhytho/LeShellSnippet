@@ -1,16 +1,19 @@
 Class {
 	#name : #LeShellSnippet2,
 	#superclass : #LePharoSnippet,
+	#instVars : [
+		'resulVariable',
+		'workingDirectory'
+	],
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
 
 { #category : #'lepiter-store' }
 LeShellSnippet2 class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
-		"Need to map down from the viewmodel"
-		"add: #resultVariable -> #resultVariable;
-		add: #workingDirectory -> #workingDirectory;
-		yourself"
+		add: #resultVariable -> #resultVariable;
+		"add: #workingDirectory -> #workingDirectory;"
+		yourself
 ]
 
 { #category : #accessing }
@@ -22,10 +25,9 @@ LeShellSnippet2 class >> leJsonV3Name [
 { #category : #'lepiter-store' }
 LeShellSnippet2 class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
-		"Need to map down from the viewmodel"
-		"add: #resultVariable -> #resultVariable;
-		add: #workingDirectory -> #workingDirectory;
-		yourself"
+		add: #resultVariable -> #resultVariable;
+		"add: #workingDirectory -> #workingDirectory;"
+		yourself
 ]
 
 { #category : #accessing }
@@ -70,4 +72,24 @@ LeShellSnippet2 >> initialize [
 { #category : #initialization }
 LeShellSnippet2 >> newCoder [
 	^ LeShellSnippetCoderModel2 new
+]
+
+{ #category : #accessing }
+LeShellSnippet2 >> resultVariable [
+	^ resulVariable
+]
+
+{ #category : #accessing }
+LeShellSnippet2 >> resultVariable: aString [
+	resulVariable := aString
+]
+
+{ #category : #accessing }
+LeShellSnippet2 >> workingDirectory [
+	^ workingDirectory
+]
+
+{ #category : #accessing }
+LeShellSnippet2 >> workingDirectory: aString [
+	workingDirectory := aString
 ]
