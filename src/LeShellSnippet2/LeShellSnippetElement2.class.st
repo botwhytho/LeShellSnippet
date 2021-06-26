@@ -12,27 +12,23 @@ LeShellSnippetElement2 >> initialize [
 
 { #category : #initialization }
 LeShellSnippetElement2 >> initializeDirectoryPicker [
-	| aDropdownLook buttonElement dropdownButtonElement |
+	| aDropdownLook buttonElement |
 	buttonElement := BrButton new
 		id: #directoryPicker;
-		aptitude: BrGlamorousButtonWithLabelAptitude;
-		"TODO: get values from serialized snippet if exists"
-		label: FileLocator imageDirectory pathString.
+		aptitude: BrGlamorousButtonWithLabelAptitude.
 	aDropdownLook := BrGlamorousWithDropdownAptitude
-		handle: [ dropdownButtonElement := BrButton new.
-			dropdownButtonElement
+		handle: [ BrButton new
 				label: buttonElement label;
 				aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude ]
 		content: [ BrFileSelector new
-				folder: FileLocator imageDirectory;
-				"TODO: get values from serialized snippet if exists"
+				folder: self snippetViewModel workingDirectory asFileReference;
 				fileFilterBlock: [ :aFile | aFile isDirectory ];
 				okAction: [ :aDirectory :aButton | 
 					aDirectory isDirectory
 						ifTrue: [ buttonElement
 								dispatchEvent: (BrDropdownHideWish new anchor: buttonElement).
-							dropdownButtonElement label: aDirectory pathString.
-							buttonElement label: aDirectory pathString ] ];
+							buttonElement label: aDirectory pathString.
+							self snippetViewModel workingDirectory: aDirectory pathString ] ];
 				buttonLabel: 'Choose Working Directory';
 				exact: self extent;
 				padding: (BlInsets all: 20);
@@ -58,12 +54,8 @@ LeShellSnippetElement2 >> initializeResultBinding [
 		when: BrEditorAcceptWish
 			do: [ :aWish | 
 			label text: aWish text.
-			self inform: aWish text asString , ' has been bound'.
-			self inform: label text asString
-			"label acceptEdition"
-			"TODO: Re-bind OSSUnixSubprocess to new variable name"
-			"TODO: need to announce somewhere of this change so updated name gets serialized"
-			 ];
+			self snippetViewModel resultVariable: aWish text asString ];
+			"TODO: Re-bind OSSUnixSubprocess to new variable name if process already ran?"
 		when: BrEditorCancelWish
 			do:
 				[ :aWish | "NEED anything here? aWish currentTarget fireEvent: BrDropdownHideWish new" ];
@@ -97,8 +89,13 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 				ifNil: [ self snippetViewModel resultVariable: resultName.
 					resultName ]).
 	self snippetViewModel
-		directoryButton: (self snippetToolbar query // #directoryPicker) anyOne
-	"TODO: If serialized snippet has a value, retain that, otherwise pre-populate like above"
+		directoryButton: (self snippetToolbar query // #directoryPicker) anyOne.
+	self snippetViewModel directoryButton
+		label:
+			(self snippetViewModel workingDirectory
+				ifNil: [ self snippetViewModel
+						workingDirectory: FileLocator imageDirectory pathString.
+					FileLocator imageDirectory pathString ])
 ]
 
 { #category : #initialization }

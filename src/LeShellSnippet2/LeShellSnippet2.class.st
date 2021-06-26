@@ -12,7 +12,7 @@ Class {
 LeShellSnippet2 class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
 		add: #resultVariable -> #resultVariable;
-		"add: #workingDirectory -> #workingDirectory;"
+		add: #workingDirectory -> #workingDirectory;
 		yourself
 ]
 
@@ -26,7 +26,7 @@ LeShellSnippet2 class >> leJsonV3Name [
 LeShellSnippet2 class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		add: #resultVariable -> #resultVariable;
-		"add: #workingDirectory -> #workingDirectory;"
+		add: #workingDirectory -> #workingDirectory;
 		yourself
 ]
 
