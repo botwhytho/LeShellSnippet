@@ -28,7 +28,9 @@ LeShellSnippetElement2 >> initializeDirectoryPicker [
 						ifTrue: [ buttonElement
 								dispatchEvent: (BrDropdownHideWish new anchor: buttonElement).
 							buttonElement label: aDirectory pathString.
-							self snippetViewModel workingDirectory: aDirectory pathString ] ];
+							self snippetViewModel workingDirectory: aDirectory pathString.
+							self snippetViewModel snippetModel
+								announceContentChangedBy: self snippetViewModel snippetModel ] ];
 				buttonLabel: 'Choose Working Directory';
 				exact: self extent;
 				padding: (BlInsets all: 20);
@@ -54,9 +56,11 @@ LeShellSnippetElement2 >> initializeResultBinding [
 		when: BrEditorAcceptWish
 			do: [ :aWish | 
 			label text: aWish text.
-			self snippetViewModel resultVariable: aWish text asString ];
-			"TODO: Re-bind OSSUnixSubprocess to new variable name if process already ran?"
-		when: BrEditorCancelWish
+			self snippetViewModel resultVariable: aWish text asString.
+			self snippetViewModel snippetModel
+				announceContentChangedBy: self snippetViewModel snippetModel ];
+		"TODO: Re-bind OSSUnixSubprocess to new variable name if process already ran?"
+			when: BrEditorCancelWish
 			do:
 				[ :aWish | "NEED anything here? aWish currentTarget fireEvent: BrDropdownHideWish new" ];
 		whenKey: BlKeyCombination primaryC
