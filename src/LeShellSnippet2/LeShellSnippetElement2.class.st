@@ -1,6 +1,11 @@
 Class {
 	#name : #LeShellSnippetElement2,
 	#superclass : #LePharoSnippetElement,
+	#instVars : [
+		'progressButton',
+		'resultButton',
+		'directoryButton'
+	],
 	#category : #LeShellSnippet2
 }
 
@@ -11,23 +16,24 @@ LeShellSnippetElement2 >> initialize [
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initializeDirectoryPicker [
-	| aDropdownLook buttonElement |
-	buttonElement := BrButton new
+LeShellSnippetElement2 >> initializeDirectoryButton [
+	| aDropdownLook |
+	directoryButton := BrButton new.
+	directoryButton
 		id: #directoryPicker;
 		aptitude: BrGlamorousButtonWithLabelAptitude.
 	aDropdownLook := BrGlamorousWithDropdownAptitude
 		handle: [ BrButton new
-				label: buttonElement label;
+				label: directoryButton label;
 				aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude ]
 		content: [ BrFileSelector new
 				folder: self snippetViewModel workingDirectory asFileReference;
 				fileFilterBlock: [ :aFile | aFile isDirectory ];
 				okAction: [ :aDirectory :aButton | 
 					aDirectory isDirectory
-						ifTrue: [ buttonElement
-								dispatchEvent: (BrDropdownHideWish new anchor: buttonElement).
-							buttonElement label: aDirectory pathString.
+						ifTrue: [ directoryButton
+								dispatchEvent: (BrDropdownHideWish new anchor: directoryButton).
+							directoryButton label: aDirectory pathString.
 							self snippetViewModel workingDirectory: aDirectory pathString.
 							self snippetViewModel snippetModel
 								announceContentChangedBy: self snippetViewModel snippetModel ] ];
@@ -36,15 +42,24 @@ LeShellSnippetElement2 >> initializeDirectoryPicker [
 				padding: (BlInsets all: 20);
 				matchParent;
 				vFitContentLimited ].
-	buttonElement addAptitude: aDropdownLook.
-	^ buttonElement
+	directoryButton addAptitude: aDropdownLook.
+	^ directoryButton
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initializeResultBinding [
-	| label |
-	label := BrEditableLabel new.
-	label
+LeShellSnippetElement2 >> initializeProgressButton [
+	progressButton := BrButton new.
+	^ progressButton
+		aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
+		label: 'Running...' asString;
+		icon: BrGlamorousIcons graycircle asElement;
+		visibility: BlVisibility hidden
+]
+
+{ #category : #initialization }
+LeShellSnippetElement2 >> initializeResultButton [
+	resultButton := BrEditableLabel new.
+	resultButton
 		id: #resultBinding;
 		inputFilter: BrTextEditorClassNameInputFilter new;
 		constraintsDo: [ :c | c minWidth: 100 ];
@@ -55,7 +70,7 @@ LeShellSnippetElement2 >> initializeResultBinding [
 		padding: (BlInsets all: 1);
 		when: BrEditorAcceptWish
 			do: [ :aWish | 
-			label text: aWish text.
+			resultButton text: aWish text.
 			self snippetViewModel resultVariable: aWish text asString.
 			self snippetViewModel snippetModel
 				announceContentChangedBy: self snippetViewModel snippetModel ];
@@ -66,7 +81,7 @@ LeShellSnippetElement2 >> initializeResultBinding [
 		whenKey: BlKeyCombination primaryC
 			labelDo:
 				[ :aShortcutEvent :aShortcut | Clipboard clipboardText: aShortcutEvent currentTarget text asString ].
-	^ label
+	^ resultButton
 ]
 
 { #category : #initialization }
@@ -85,21 +100,20 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 			(aPage children items
 				select: [ :each | each isKindOf: LeShellSnippet2 ]) size ].
 	resultName := 'leShell' , snippetsInPage asString.
-	self snippetViewModel
-		resultButton: (self snippetToolbar query // #resultBinding) anyOne.
-	self snippetViewModel resultButton
+	resultButton
 		text:
 			(self snippetViewModel resultVariable
 				ifNil: [ self snippetViewModel resultVariable: resultName.
 					resultName ]).
-	self snippetViewModel
-		directoryButton: (self snippetToolbar query // #directoryPicker) anyOne.
-	self snippetViewModel directoryButton
+	self snippetViewModel resultButton: resultButton.
+	self snippetViewModel directoryButton: directoryButton.
+	directoryButton
 		label:
 			(self snippetViewModel workingDirectory
 				ifNil: [ self snippetViewModel
 						workingDirectory: FileLocator imageDirectory pathString.
 					FileLocator imageDirectory pathString ]).
+	self snippetViewModel directoryButton: directoryButton.
 	self aptitude removeEventHandler: BlFocusOutEvent.
 	self aptitude
 		when: BlFocusOutEvent
@@ -120,10 +134,11 @@ LeShellSnippetElement2 >> settingsToolbar [
 			{(BrLabel new
 				aptitude: BrGlamorousLabelAptitude new;
 				text: 'LeShellSnippet @ ').
-			self initializeDirectoryPicker.
+			self initializeDirectoryButton.
 			(BrLabel new
 				aptitude: BrGlamorousLabelAptitude new;
 				text: 'Output Variable: ').
-			self initializeResultBinding}.
+			self initializeResultButton.
+			self initializeProgressButton}.
 	^ toolbar
 ]

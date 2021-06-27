@@ -66,6 +66,7 @@ LeShellSnippet2 >> contextMenuItemSpecification [
 
 { #category : #initialization }
 LeShellSnippet2 >> initialize [
+	"TODO: If not doing anything else here, remove"
 	super initialize.
 ]
 
