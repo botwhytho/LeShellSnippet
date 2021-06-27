@@ -51,8 +51,6 @@ LeShellSnippetElement2 >> initializeProgressButton [
 	progressButton := BrButton new.
 	^ progressButton
 		aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
-		label: 'Running...' asString;
-		icon: BrGlamorousIcons graycircle asElement;
 		visibility: BlVisibility hidden
 ]
 
@@ -114,6 +112,16 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 						workingDirectory: FileLocator imageDirectory pathString.
 					FileLocator imageDirectory pathString ]).
 	self snippetViewModel directoryButton: directoryButton.
+	self snippetViewModel progressButton: progressButton.
+	self snippetViewModel announcer
+		when: ShellProcessCompleted
+		do: [ :anAnnouncement | 
+			self snippetViewModel progressButton
+				label: 'Done';
+				icon:
+					(anAnnouncement shellCommand isSuccess
+						ifTrue: [ BrGlamorousIcons greencircle asElement ]
+						ifFalse: [ BrGlamorousIcons redcircle asElement ]) ].
 	self aptitude removeEventHandler: BlFocusOutEvent.
 	self aptitude
 		when: BlFocusOutEvent

@@ -46,7 +46,7 @@ LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 
 { #category : #'private - actions' }
 LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPharoCoderEvaluationContext onFailDo: anEvaluationFailBlock [
-	| aCompiledMethodToEvaluate pharoEvaluationResult shellCommandResult |
+	| aCompiledMethodToEvaluate pharoEvaluationResult progressButton shellCommandResult snippetViewModel |
 	aCompiledMethodToEvaluate := self
 		primitiveAnonymousCompile: aSourceString
 		inContext: aGtPharoCoderEvaluationContext
@@ -60,9 +60,9 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 		executeMethod: aCompiledMethodToEvaluate.
 	aCompiledMethodToEvaluate := self
 		primitiveAnonymousCompile:
-			'RunInShell new
-		workingDirectory: thisSnippetViewModel directoryButton label asString;
-		command: (''' , pharoEvaluationResult asString , ''')'
+			'RunInShell runInBackground: (''' , pharoEvaluationResult asString
+				,
+					''') workingDirectory: thisSnippetViewModel directoryButton label asString announceOn: thisSnippetViewModel announcer'
 		inContext: aGtPharoCoderEvaluationContext
 		onFailDo: [ ^ anEvaluationFailBlock value ].
 	shellCommandResult := aGtPharoCoderEvaluationContext receiverObject
@@ -71,11 +71,21 @@ LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPhar
 				ifNil: [ #() ]
 				ifNotNil: [ {aGtPharoCoderEvaluationContext runtimeContext} ])
 		executeMethod: aCompiledMethodToEvaluate.
+	snippetViewModel := (aGtPharoCoderEvaluationContext
+		bindingOf: #thisSnippetViewModel) value.
 	aGtPharoCoderEvaluationContext
-		bindingAt:
-			(aGtPharoCoderEvaluationContext bindingOf: #thisSnippetViewModel)
-				value resultButton text asString asSymbol
+		bindingAt: snippetViewModel resultButton text asString asSymbol
 		put: shellCommandResult.
-	"self asCoderUIModel get to some button label to bind. If lable changes react"
+	progressButton := snippetViewModel progressButton.
+	progressButton
+		visibility: BlVisibility visible;
+		label: 'Running...';
+		icon: BrGlamorousIcons graycircle asElement;
+		action: [ progressButton
+				enqueueTask:
+					(BlTaskAction new
+						action: [ progressButton phlow
+								spawnObject: shellCommandResult
+								withDestination: self spawnDestination ]) ].
 	^ shellCommandResult
 ]

@@ -5,7 +5,8 @@ Class {
 		'workingDirectory',
 		'resultVariable',
 		'resultButton',
-		'directoryButton'
+		'directoryButton',
+		'progressButton'
 	],
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
@@ -23,6 +24,16 @@ LeShellSnippetViewModel2 >> directoryButton: aBrFileSelector [
 { #category : #initialization }
 LeShellSnippetViewModel2 >> initialize [
 	super initialize.
+]
+
+{ #category : #accessing }
+LeShellSnippetViewModel2 >> progressButton [
+	^ progressButton
+]
+
+{ #category : #accessing }
+LeShellSnippetViewModel2 >> progressButton: aBrButton [
+	progressButton := aBrButton
 ]
 
 { #category : #accessing }
