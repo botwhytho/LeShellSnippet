@@ -50,6 +50,7 @@ LeShellSnippetElement2 >> initializeDirectoryButton [
 LeShellSnippetElement2 >> initializeProgressButton [
 	progressButton := BrButton new.
 	^ progressButton
+		id: #progressButton;
 		aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
 		visibility: BlVisibility hidden
 ]
