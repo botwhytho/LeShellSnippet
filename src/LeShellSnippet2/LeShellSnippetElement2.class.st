@@ -99,7 +99,14 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 			(self snippetViewModel workingDirectory
 				ifNil: [ self snippetViewModel
 						workingDirectory: FileLocator imageDirectory pathString.
-					FileLocator imageDirectory pathString ])
+					FileLocator imageDirectory pathString ]).
+	self aptitude removeEventHandler: BlFocusOutEvent.
+	self aptitude
+		when: BlFocusOutEvent
+		do: [ (self aptitude instVarNamed: #toolbarContainer)
+				visibility: BlVisibility visible ].
+	(self aptitude instVarNamed: #toolbarContainer)
+		visibility: BlVisibility visible
 ]
 
 { #category : #initialization }

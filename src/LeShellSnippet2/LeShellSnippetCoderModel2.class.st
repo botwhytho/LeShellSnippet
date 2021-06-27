@@ -4,11 +4,6 @@ Class {
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
 
-{ #category : #initialization }
-LeShellSnippetCoderModel2 >> initialize [
-	super initialize.
-]
-
 { #category : #'UI specific' }
 LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 	addOns addStyler: GtPharoStyler new.
