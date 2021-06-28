@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'shellCommand'
 	],
-	#category : #'LeShellSnippet2-LeShellSnippet2'
+	#category : #'LeShellSnippet2-Shell'
 }
 
 { #category : #accessing }
