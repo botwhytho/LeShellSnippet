@@ -38,9 +38,11 @@ LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 		addMainAction: 'Help' translated
 		icon: BrGlamorousVectorIcons question
 		action: [ :aCoderUIModel :anEvent | 
-			Halt now.
-			"(aCoderUIModel bindingStrategy bindingOf: #thisSnippetViewModel)
-				value snippetModel asPreviewElement requestFocus" ]
+			anEvent target
+				enqueueTask:
+					(BlTaskAction new
+						action: [ anEvent target phlow
+								spawnObject: LeShellSnippetExplainerExamples new leShellSnippetExplainerExample ]) ]
 		id: LeShellSnippetCoderModelHelpActionId
 ]
 
