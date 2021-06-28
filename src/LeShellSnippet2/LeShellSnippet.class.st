@@ -1,5 +1,5 @@
 Class {
-	#name : #LeShellSnippet2,
+	#name : #LeShellSnippet,
 	#superclass : #LePharoSnippet,
 	#instVars : [
 		'resulVariable',
@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'lepiter-store' }
-LeShellSnippet2 class >> leJsonV3AttributeMapping [
+LeShellSnippet class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
 		add: #resultVariable -> #resultVariable;
 		add: #workingDirectory -> #workingDirectory;
@@ -17,13 +17,13 @@ LeShellSnippet2 class >> leJsonV3AttributeMapping [
 ]
 
 { #category : #accessing }
-LeShellSnippet2 class >> leJsonV3Name [
+LeShellSnippet class >> leJsonV3Name [
 
-	^ 'shellSnippet2'
+	^ 'shellSnippet'
 ]
 
 { #category : #'lepiter-store' }
-LeShellSnippet2 class >> leJsonV4AttributeMapping [
+LeShellSnippet class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		add: #resultVariable -> #resultVariable;
 		add: #workingDirectory -> #workingDirectory;
@@ -31,13 +31,13 @@ LeShellSnippet2 class >> leJsonV4AttributeMapping [
 ]
 
 { #category : #accessing }
-LeShellSnippet2 class >> leJsonV4Name [
+LeShellSnippet class >> leJsonV4Name [
 
-	^ 'shellSnippet2'
+	^ 'shellSnippet'
 ]
 
 { #category : #converting }
-LeShellSnippet2 >> asPreviewElement [
+LeShellSnippet >> asPreviewElement [
 	| viewModel snippetElement |
 
 	viewModel := self asSnippetViewModel.
@@ -48,49 +48,43 @@ LeShellSnippet2 >> asPreviewElement [
 ]
 
 { #category : #accessing }
-LeShellSnippet2 >> asSnippetViewModel [
+LeShellSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
-	^ LeShellSnippetViewModel2 new snippetModel: self
+	^ LeShellSnippetViewModel new snippetModel: self
 ]
 
 { #category : #accessing }
-LeShellSnippet2 >> contextMenuItemSpecification [
+LeShellSnippet >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 
 	^ LeContextMenuItemSpecification new
 		priority: 20;
 		snippetClass: self;
-		title: 'Shell2'
+		title: 'LeShell'
 ]
 
 { #category : #initialization }
-LeShellSnippet2 >> initialize [
-	"TODO: If not doing anything else here, remove"
-	super initialize.
-]
-
-{ #category : #initialization }
-LeShellSnippet2 >> newCoder [
-	^ LeShellSnippetCoderModel2 new
+LeShellSnippet >> newCoder [
+	^ LeShellSnippetCoderModel new
 ]
 
 { #category : #accessing }
-LeShellSnippet2 >> resultVariable [
+LeShellSnippet >> resultVariable [
 	^ resulVariable
 ]
 
 { #category : #accessing }
-LeShellSnippet2 >> resultVariable: aString [
+LeShellSnippet >> resultVariable: aString [
 	resulVariable := aString
 ]
 
 { #category : #accessing }
-LeShellSnippet2 >> workingDirectory [
+LeShellSnippet >> workingDirectory [
 	^ workingDirectory
 ]
 
 { #category : #accessing }
-LeShellSnippet2 >> workingDirectory: aString [
+LeShellSnippet >> workingDirectory: aString [
 	workingDirectory := aString
 ]

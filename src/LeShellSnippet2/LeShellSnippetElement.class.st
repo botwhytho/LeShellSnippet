@@ -1,5 +1,5 @@
 Class {
-	#name : #LeShellSnippetElement2,
+	#name : #LeShellSnippetElement,
 	#superclass : #LePharoSnippetElement,
 	#instVars : [
 		'progressButton',
@@ -14,20 +14,20 @@ Class {
 }
 
 { #category : #acccessing }
-LeShellSnippetElement2 class >> suggestHelp [
+LeShellSnippetElement class >> suggestHelp [
 	^ suggestHelp
 		ifNil: [ suggestHelp := false.
 			true ]
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initialize [
+LeShellSnippetElement >> initialize [
 	super initialize.
 	coderToolbar addChild: self settingsToolbar at: 3 as: #settings
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initializeDirectoryButton [
+LeShellSnippetElement >> initializeDirectoryButton [
 	| aDropdownAptitude |
 	directoryButton := BrButton new.
 	directoryButton
@@ -59,7 +59,7 @@ LeShellSnippetElement2 >> initializeDirectoryButton [
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initializeHelpButton [
+LeShellSnippetElement >> initializeHelpButton [
 	helpButton := BrButton new.
 	helpButton
 		beTinySize;
@@ -76,7 +76,7 @@ LeShellSnippetElement2 >> initializeHelpButton [
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initializeProgressButton [
+LeShellSnippetElement >> initializeProgressButton [
 	progressButton := BrButton new.
 	^ progressButton
 		beSmallSize;
@@ -86,7 +86,7 @@ LeShellSnippetElement2 >> initializeProgressButton [
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> initializeResultButton [
+LeShellSnippetElement >> initializeResultButton [
 	resultButton := BrEditableLabel new.
 	resultButton
 		id: #resultBinding;
@@ -104,9 +104,6 @@ LeShellSnippetElement2 >> initializeResultButton [
 			self snippetViewModel snippetModel
 				announceContentChangedBy: self snippetViewModel snippetModel ];
 		"TODO: Re-bind OSSUnixSubprocess to new variable name if process already ran?"
-			when: BrEditorCancelWish
-			do:
-				[ :aWish | "NEED anything here? aWish currentTarget fireEvent: BrDropdownHideWish new" ];
 		whenKey: BlKeyCombination primaryC
 			labelDo:
 				[ :aShortcutEvent :aShortcut | Clipboard clipboardText: aShortcutEvent currentTarget text asString ].
@@ -114,12 +111,12 @@ LeShellSnippetElement2 >> initializeResultButton [
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> newCoder [
-	^ LeShellSnippetCoderModel2 new
+LeShellSnippetElement >> newCoder [
+	^ LeShellSnippetCoderModel new
 ]
 
 { #category : #'api - snippet view model' }
-LeShellSnippetElement2 >> onSnippetViewModelChanged [
+LeShellSnippetElement >> onSnippetViewModelChanged [
 	| page resultName snippetsInPage |
 	super onSnippetViewModelChanged.
 	self class suggestHelp
@@ -129,7 +126,7 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 		ifNil: [ 1 ]
 		ifNotNil: [ :aPage | 
 			(aPage children items
-				select: [ :each | each isKindOf: LeShellSnippet2 ]) size ].
+				select: [ :each | each isKindOf: LeShellSnippet ]) size ].
 	resultName := 'leShell' , snippetsInPage asString.
 	resultButton
 		text:
@@ -165,7 +162,7 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 ]
 
 { #category : #'api - snippet view model' }
-LeShellSnippetElement2 >> onboardingUXOn: aButton [
+LeShellSnippetElement >> onboardingUXOn: aButton [
 	| anAnimation anOverlay fadeIn fadeOut |
 	anOverlay := (BlOverlayElement on: aButton)
 		background: ((Color fromHexString: #ffd666) alpha: 0).
@@ -191,7 +188,7 @@ LeShellSnippetElement2 >> onboardingUXOn: aButton [
 ]
 
 { #category : #initialization }
-LeShellSnippetElement2 >> settingsToolbar [
+LeShellSnippetElement >> settingsToolbar [
 	| toolbar label |
 	toolbar := BrToolbar new
 		aptitude: (BrGlamorousToolbarAptitude new spacing: 4);

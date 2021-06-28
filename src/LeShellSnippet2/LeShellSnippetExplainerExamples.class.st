@@ -149,7 +149,7 @@ LeShellSnippetExplainerExamples >> snippetElement [
 	<gtExample>
 	| snippetElement |
 	snippetElement := BlUseAsyncFeatures
-		disableDuring: [ LeShellSnippet2 new asPreviewElement ].
+		disableDuring: [ LeShellSnippet new asPreviewElement ].
 	(snippetElement query // #progressButton) anyOne
 		visibility: BlVisibility visible;
 		label: 'Running...';

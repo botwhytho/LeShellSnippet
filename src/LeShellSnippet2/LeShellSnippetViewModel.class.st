@@ -1,5 +1,5 @@
 Class {
-	#name : #LeShellSnippetViewModel2,
+	#name : #LeShellSnippetViewModel,
 	#superclass : #LePharoSnippetViewModel,
 	#instVars : [
 		'workingDirectory',
@@ -12,61 +12,61 @@ Class {
 }
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> directoryButton [
+LeShellSnippetViewModel >> directoryButton [
 	^ directoryButton
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> directoryButton: aBrFileSelector [
+LeShellSnippetViewModel >> directoryButton: aBrFileSelector [
 	directoryButton := aBrFileSelector
 ]
 
 { #category : #initialization }
-LeShellSnippetViewModel2 >> initialize [
+LeShellSnippetViewModel >> initialize [
 	super initialize.
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> progressButton [
+LeShellSnippetViewModel >> progressButton [
 	^ progressButton
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> progressButton: aBrButton [
+LeShellSnippetViewModel >> progressButton: aBrButton [
 	progressButton := aBrButton
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> resultButton [
+LeShellSnippetViewModel >> resultButton [
 	^ resultButton
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> resultButton: aBrEditableLabel [
+LeShellSnippetViewModel >> resultButton: aBrEditableLabel [
 	resultButton := aBrEditableLabel
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> resultVariable [
+LeShellSnippetViewModel >> resultVariable [
 	^ self snippetModel resultVariable
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> resultVariable: aString [
+LeShellSnippetViewModel >> resultVariable: aString [
 	self snippetModel resultVariable: aString
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> snippetElementClass [
-	^ LeShellSnippetElement2
+LeShellSnippetViewModel >> snippetElementClass [
+	^ LeShellSnippetElement
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> workingDirectory [
+LeShellSnippetViewModel >> workingDirectory [
 	^ self snippetModel workingDirectory
 ]
 
 { #category : #accessing }
-LeShellSnippetViewModel2 >> workingDirectory: aString [
+LeShellSnippetViewModel >> workingDirectory: aString [
 	self snippetModel workingDirectory: aString
 ]

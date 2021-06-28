@@ -1,11 +1,11 @@
 Class {
-	#name : #LeShellSnippetCoderModel2,
+	#name : #LeShellSnippetCoderModel,
 	#superclass : #GtPharoSnippetCoder,
 	#category : #'LeShellSnippet2-Coder'
 }
 
 { #category : #'UI specific' }
-LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
+LeShellSnippetCoderModel >> initializeAddOns: addOns [
 	addOns addStyler: GtPharoStyler new.
 	addOns addStyler: GtPharoDynamicHighlightStyler new.
 	addOns addStyler: GtPharoDeprecationStyler new.
@@ -37,7 +37,7 @@ LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 ]
 
 { #category : #'private - actions' }
-LeShellSnippetCoderModel2 >> primitiveEvaluate: aSourceString inContext: aGtPharoCoderEvaluationContext onFailDo: anEvaluationFailBlock [
+LeShellSnippetCoderModel >> primitiveEvaluate: aSourceString inContext: aGtPharoCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	| aCompiledMethodToEvaluate pharoEvaluationResult progressButton shellCommandResult snippetViewModel |
 	aCompiledMethodToEvaluate := self
 		primitiveAnonymousCompile: aSourceString
