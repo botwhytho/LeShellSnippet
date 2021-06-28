@@ -13,4 +13,4 @@ Metacello new
 
 # Usage
 
-From the Lepiter snippet dropdown menu select `LeShell`. The result of the Pharo code in this snippet will be converted to a string with `asString` and will be run by the default shell. Click on the Help button on the snippet (the one with a question mark) to learn more.
+![LeShellSnippet Basic Usage](../assets/LeShellSnippet-BasicUsage.gif)
