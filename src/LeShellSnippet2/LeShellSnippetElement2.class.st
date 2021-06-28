@@ -20,6 +20,7 @@ LeShellSnippetElement2 >> initializeDirectoryButton [
 	| aDropdownLook |
 	directoryButton := BrButton new.
 	directoryButton
+		beSmallSize;
 		id: #directoryPicker;
 		aptitude: BrGlamorousButtonWithLabelAptitude.
 	aDropdownLook := BrGlamorousWithDropdownAptitude
@@ -50,6 +51,7 @@ LeShellSnippetElement2 >> initializeDirectoryButton [
 LeShellSnippetElement2 >> initializeProgressButton [
 	progressButton := BrButton new.
 	^ progressButton
+		beSmallSize;
 		id: #progressButton;
 		aptitude: BrGlamorousButtonWithIconAndLabelAptitude;
 		visibility: BlVisibility hidden
@@ -136,8 +138,7 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 LeShellSnippetElement2 >> settingsToolbar [
 	| toolbar label |
 	toolbar := BrToolbar new
-		aptitude: (BrGlamorousToolbarAptitude new spacing: 4);
-		padding: (BlInsets left: -4).
+		aptitude: (BrGlamorousToolbarAptitude new spacing: 4).
 	toolbar
 		addItems:
 			{(BrLabel new
