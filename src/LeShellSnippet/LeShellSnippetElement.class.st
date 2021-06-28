@@ -10,7 +10,7 @@ Class {
 	#classInstVars : [
 		'suggestHelp'
 	],
-	#category : #'LeShellSnippet2-Snippet'
+	#category : #'LeShellSnippet-Snippet'
 }
 
 { #category : #acccessing }

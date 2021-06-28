@@ -1,7 +1,7 @@
 Class {
 	#name : #LeShellSnippetCoderModel,
 	#superclass : #GtPharoSnippetCoder,
-	#category : #'LeShellSnippet2-Coder'
+	#category : #'LeShellSnippet-Coder'
 }
 
 { #category : #'UI specific' }

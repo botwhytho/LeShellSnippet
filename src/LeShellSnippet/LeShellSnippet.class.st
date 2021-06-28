@@ -5,7 +5,7 @@ Class {
 		'resulVariable',
 		'workingDirectory'
 	],
-	#category : #'LeShellSnippet2-Snippet'
+	#category : #'LeShellSnippet-Snippet'
 }
 
 { #category : #'lepiter-store' }

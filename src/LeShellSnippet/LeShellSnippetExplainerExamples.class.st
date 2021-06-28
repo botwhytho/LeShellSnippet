@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'snippetElement'
 	],
-	#category : #'LeShellSnippet2-Examples'
+	#category : #'LeShellSnippet-Examples'
 }
 
 { #category : #example }

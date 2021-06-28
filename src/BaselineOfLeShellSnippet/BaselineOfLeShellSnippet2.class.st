@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfLeShellSnippet2,
+	#name : #BaselineOfLeShellSnippet,
 	#superclass : #BaselineOf,
-	#category : #BaselineOfLeShellSnippet2
+	#category : #BaselineOfLeShellSnippet
 }
 
 { #category : #baseline }
-BaselineOfLeShellSnippet2 >> baseline: spec [
+BaselineOfLeShellSnippet >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec

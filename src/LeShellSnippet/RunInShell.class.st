@@ -6,7 +6,7 @@ Class {
 		'stdout',
 		'stderr'
 	],
-	#category : #'LeShellSnippet2-Shell'
+	#category : #'LeShellSnippet-Shell'
 }
 
 { #category : #initialization }

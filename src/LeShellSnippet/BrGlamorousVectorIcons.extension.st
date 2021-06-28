@@ -1,6 +1,6 @@
 Extension { #name : #BrGlamorousVectorIcons }
 
-{ #category : #'*LeShellSnippet2' }
+{ #category : #'*LeShellSnippet' }
 BrGlamorousVectorIcons class >> question [
 	<script: 'self question inspect'>
 	^ [ BlElement new

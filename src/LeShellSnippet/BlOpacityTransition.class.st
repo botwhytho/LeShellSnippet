@@ -1,7 +1,7 @@
 Class {
 	#name : #BlOpacityTransition,
 	#superclass : #BlTransition,
-	#category : #'LeShellSnippet2-Animation'
+	#category : #'LeShellSnippet-Animation'
 }
 
 { #category : #pulse }
