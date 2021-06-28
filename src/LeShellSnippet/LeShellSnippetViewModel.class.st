@@ -8,7 +8,7 @@ Class {
 		'directoryButton',
 		'progressButton'
 	],
-	#category : #'LeShellSnippet2-Snippet'
+	#category : #'LeShellSnippet-Snippet'
 }
 
 { #category : #accessing }
