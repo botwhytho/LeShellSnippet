@@ -34,16 +34,6 @@ LeShellSnippetCoderModel2 >> initializeAddOns: addOns [
 		icon: BrGlamorousVectorIcons debug
 		action: [ :aCoderUIModel :anEvent | aCoderUIModel debug ]
 		id: GtSourceCoderDebugActionId.
-	addOns
-		addMainAction: 'Help' translated
-		icon: BrGlamorousVectorIcons question
-		action: [ :aCoderUIModel :anEvent | 
-			anEvent target
-				enqueueTask:
-					(BlTaskAction new
-						action: [ anEvent target phlow
-								spawnObject: LeShellSnippetExplainerExamples new leShellSnippetExplainerExample ]) ]
-		id: LeShellSnippetCoderModelHelpActionId
 ]
 
 { #category : #'private - actions' }

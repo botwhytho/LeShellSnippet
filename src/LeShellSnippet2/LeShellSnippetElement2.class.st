@@ -4,10 +4,21 @@ Class {
 	#instVars : [
 		'progressButton',
 		'resultButton',
-		'directoryButton'
+		'directoryButton',
+		'helpButton'
+	],
+	#classInstVars : [
+		'suggestHelp'
 	],
 	#category : #LeShellSnippet2
 }
+
+{ #category : #acccessing }
+LeShellSnippetElement2 class >> suggestHelp [
+	^ suggestHelp
+		ifNil: [ suggestHelp := false.
+			true ]
+]
 
 { #category : #initialization }
 LeShellSnippetElement2 >> initialize [
@@ -45,6 +56,23 @@ LeShellSnippetElement2 >> initializeDirectoryButton [
 				vFitContentLimited ].
 	directoryButton addAptitude: aDropdownAptitude.
 	^ directoryButton
+]
+
+{ #category : #initialization }
+LeShellSnippetElement2 >> initializeHelpButton [
+	helpButton := BrButton new.
+	helpButton
+		beTinySize;
+		label: 'Help' translated;
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons question;
+		action: [ helpButton
+				enqueueTask:
+					(BlTaskAction new
+						action: [ helpButton phlow
+								spawnObject: LeShellSnippetExplainerExamples new leShellSnippetExplainerExample ]) ];
+		id: LeShellSnippetCoderModelHelpActionId.
+	^ helpButton
 ]
 
 { #category : #initialization }
@@ -94,6 +122,8 @@ LeShellSnippetElement2 >> newCoder [
 LeShellSnippetElement2 >> onSnippetViewModelChanged [
 	| page resultName snippetsInPage |
 	super onSnippetViewModelChanged.
+	self class suggestHelp
+		ifTrue: [ helpButton addChild: (self onboardingUXOn: helpButton) ].
 	page := self snippetViewModel snippetModel page.
 	snippetsInPage := page
 		ifNil: [ 1 ]
@@ -134,14 +164,42 @@ LeShellSnippetElement2 >> onSnippetViewModelChanged [
 		visibility: BlVisibility visible
 ]
 
+{ #category : #'api - snippet view model' }
+LeShellSnippetElement2 >> onboardingUXOn: aButton [
+	| anAnimation anOverlay fadeIn fadeOut |
+	anOverlay := (BlOverlayElement on: aButton)
+		background: ((Color fromHexString: #ffd666) alpha: 0).
+	fadeIn := BlOpacityTransition new
+		duration: 1.0 seconds;
+		from: 0.0;
+		to: 0.67;
+		onStepDo: [ :eachColor | anOverlay background: eachColor ].
+	fadeOut := BlOpacityTransition new
+		duration: 1.0 seconds;
+		from: 0.67;
+		to: 0.0;
+		onStepDo: [ :eachColor | anOverlay background: eachColor ].
+	anAnimation := BlSequentialAnimation new
+		addAll:
+			{fadeIn.
+			fadeOut};
+		loops: 4;
+		delay: 1 second;
+		onFinishedDo: [ anOverlay removeFromParent ].
+	anOverlay addAnimation: anAnimation.
+	^ anOverlay
+]
+
 { #category : #initialization }
 LeShellSnippetElement2 >> settingsToolbar [
 	| toolbar label |
 	toolbar := BrToolbar new
-		aptitude: (BrGlamorousToolbarAptitude new spacing: 4).
+		aptitude: (BrGlamorousToolbarAptitude new spacing: 4);
+		padding: (BlInsets left: -4).
 	toolbar
 		addItems:
-			{(BrLabel new
+			{self initializeHelpButton.
+			(BrLabel new
 				aptitude: BrGlamorousLabelAptitude new;
 				text: 'LeShellSnippet @ ').
 			self initializeDirectoryButton.

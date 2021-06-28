@@ -20,7 +20,7 @@ LeShellSnippetExplainerExamples >> addExplainerToButtons [
 	(#debugButton
 		-> (snippetElement query // #'Main toolbar') anyOne children third).
 	(#helpButton
-		-> (snippetElement query // #'Main toolbar') anyOne children fourth).
+		-> (snippetElement query // LeShellSnippetCoderModelHelpActionId) anyOne).
 	(#directoryButton
 		-> (snippetElement query // #directoryPicker) anyOne).
 	(#resultButton -> (snippetElement query // #resultBinding) anyOne).
