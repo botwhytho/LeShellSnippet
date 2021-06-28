@@ -13,4 +13,4 @@ Metacello new
 
 # Usage
 
-![LeShellSnippet Basic Usage](../assets/LeShellSnippet-BasicUsage.gif)
+![LeShellSnippet Basic Usage](../assets/LeShellSnippet-BasicUsage.gif?raw=true)
