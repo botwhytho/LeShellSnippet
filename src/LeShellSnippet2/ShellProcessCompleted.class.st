@@ -7,11 +7,6 @@ Class {
 	#category : #'LeShellSnippet2-LeShellSnippet2'
 }
 
-{ #category : #'api - enable / disable' }
-ShellProcessCompleted class >> enableInZ: anEventDispatcher [
-	anEventDispatcher enableGeneralEventType: self
-]
-
 { #category : #accessing }
 ShellProcessCompleted >> shellCommand [
 	^ shellCommand
