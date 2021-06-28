@@ -17,13 +17,13 @@ LeShellSnippetElement2 >> initialize [
 
 { #category : #initialization }
 LeShellSnippetElement2 >> initializeDirectoryButton [
-	| aDropdownLook |
+	| aDropdownAptitude |
 	directoryButton := BrButton new.
 	directoryButton
 		beSmallSize;
 		id: #directoryPicker;
 		aptitude: BrGlamorousButtonWithLabelAptitude.
-	aDropdownLook := BrGlamorousWithDropdownAptitude
+	aDropdownAptitude := BrGlamorousWithDropdownAptitude
 		handle: [ BrButton new
 				label: directoryButton label;
 				aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude ]
@@ -43,7 +43,7 @@ LeShellSnippetElement2 >> initializeDirectoryButton [
 				padding: (BlInsets all: 20);
 				matchParent;
 				vFitContentLimited ].
-	directoryButton addAptitude: aDropdownLook.
+	directoryButton addAptitude: aDropdownAptitude.
 	^ directoryButton
 ]
 
