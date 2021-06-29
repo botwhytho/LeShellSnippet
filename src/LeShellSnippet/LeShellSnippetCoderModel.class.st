@@ -54,7 +54,7 @@ LeShellSnippetCoderModel >> primitiveEvaluate: aSourceString inContext: aGtPharo
 		primitiveAnonymousCompile:
 			'RunInShell runInBackground: (''' , pharoEvaluationResult asString
 				,
-					''') workingDirectory: thisSnippetViewModel directoryButton label asString announceOn: thisSnippetViewModel announcer'
+					''') workingDirectory: thisSnippetViewModel workingDirectory announceOn: thisSnippetViewModel announcer'
 		inContext: aGtPharoCoderEvaluationContext
 		onFailDo: [ ^ anEvaluationFailBlock value ].
 	shellCommandResult := aGtPharoCoderEvaluationContext receiverObject

@@ -5,7 +5,8 @@ Class {
 		'progressButton',
 		'resultButton',
 		'directoryButton',
-		'helpButton'
+		'helpButton',
+		'directoryButtonTooltipAptitude'
 	],
 	#classInstVars : [
 		'suggestHelp'
@@ -18,6 +19,13 @@ LeShellSnippetElement class >> suggestHelp [
 	^ suggestHelp
 		ifNil: [ suggestHelp := false.
 			true ]
+]
+
+{ #category : #initialization }
+LeShellSnippetElement >> constantFilename: aPathString [
+	^ aPathString size > 15
+		ifTrue: [ (aPathString first: 15) , '...' ]
+		ifFalse: [ aPathString ]
 ]
 
 { #category : #initialization }
@@ -34,6 +42,7 @@ LeShellSnippetElement >> initializeDirectoryButton [
 		beSmallSize;
 		id: #directoryPicker;
 		aptitude: BrGlamorousButtonWithLabelAptitude.
+	directoryButtonTooltipAptitude := BrGlamorousWithLabelTooltipAptitude new.
 	aDropdownAptitude := BrGlamorousWithDropdownAptitude
 		handle: [ BrButton new
 				label: directoryButton label;
@@ -45,7 +54,9 @@ LeShellSnippetElement >> initializeDirectoryButton [
 					aDirectory isDirectory
 						ifTrue: [ directoryButton
 								dispatchEvent: (BrDropdownHideWish new anchor: directoryButton).
-							directoryButton label: aDirectory pathString.
+							directoryButton
+								label: (self constantFilename: aDirectory pathString).
+							directoryButtonTooltipAptitude text: aDirectory pathString.
 							self snippetViewModel workingDirectory: aDirectory pathString.
 							self snippetViewModel snippetModel
 								announceContentChangedBy: self snippetViewModel snippetModel ] ];
@@ -55,6 +66,7 @@ LeShellSnippetElement >> initializeDirectoryButton [
 				matchParent;
 				vFitContentLimited ].
 	directoryButton addAptitude: aDropdownAptitude.
+	directoryButton addAptitude: directoryButtonTooltipAptitude.
 	^ directoryButton
 ]
 
@@ -138,9 +150,14 @@ LeShellSnippetElement >> onSnippetViewModelChanged [
 	directoryButton
 		label:
 			(self snippetViewModel workingDirectory
-				ifNil: [ self snippetViewModel
+				ifNil: [ directoryButtonTooltipAptitude
+						text: FileLocator imageDirectory pathString.
+					self snippetViewModel
 						workingDirectory: FileLocator imageDirectory pathString.
-					FileLocator imageDirectory pathString ]).
+					self constantFilename: FileLocator imageDirectory pathString ]
+				ifNotNil: [ directoryButtonTooltipAptitude
+						text: self snippetViewModel workingDirectory.
+					self constantFilename: self snippetViewModel workingDirectory ]).
 	self snippetViewModel directoryButton: directoryButton.
 	self snippetViewModel progressButton: progressButton.
 	self snippetViewModel announcer
