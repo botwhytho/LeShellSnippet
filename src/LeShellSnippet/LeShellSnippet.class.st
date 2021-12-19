@@ -8,6 +8,16 @@ Class {
 	#category : #'LeShellSnippet-Snippet'
 }
 
+{ #category : #accessing }
+LeShellSnippet class >> contextMenuItemSpecification [
+	<leSnippetSpecification>
+
+	^ LeContextMenuItemSpecification new
+		priority: 20;
+		snippetClass: self;
+		title: 'LeShell'
+]
+
 { #category : #'lepiter-store' }
 LeShellSnippet class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
@@ -52,16 +62,6 @@ LeShellSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
 	^ LeShellSnippetViewModel new snippetModel: self
-]
-
-{ #category : #accessing }
-LeShellSnippet >> contextMenuItemSpecification [
-	<leSnippetSpecification>
-
-	^ LeContextMenuItemSpecification new
-		priority: 20;
-		snippetClass: self;
-		title: 'LeShell'
 ]
 
 { #category : #initialization }
