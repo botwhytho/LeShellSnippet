@@ -14,10 +14,10 @@ LeShellSnippetCoderModel >> initializeAddOns: addOns [
 	addOns
 		addMainAction: 'Evaluate' translated
 		icon: BrGlamorousVectorIcons play
-		action: [ :aCoderUIModel :anEvent | 
+		action: [ :aCoderUIModel :anElement | 
 			GtCoderCodeExecutor doIt
 				coderUIModel: aCoderUIModel;
-				event: anEvent;
+				element: anElement;
 				execute ]
 		id: GtSourceCoderDoItActionId.
 	addOns
@@ -26,7 +26,7 @@ LeShellSnippetCoderModel >> initializeAddOns: addOns [
 		action: [ :aCoderUIModel :anEvent | 
 			GtCoderCodeExecutor doItAndGo
 				coderUIModel: aCoderUIModel;
-				event: anEvent;
+				element: anEvent;
 				execute ]
 		id: GtSourceCoderDoItAndGoActionId.
 	addOns
@@ -65,9 +65,9 @@ LeShellSnippetCoderModel >> primitiveEvaluate: aSourceString inContext: aGtPharo
 		executeMethod: aCompiledMethodToEvaluate.
 	snippetViewModel := (aGtPharoCoderEvaluationContext
 		bindingOf: #thisSnippetViewModel) value.
-	aGtPharoCoderEvaluationContext
-		bindingAt: snippetViewModel resultButton text asString asSymbol
-		put: shellCommandResult.
+	(aGtPharoCoderEvaluationContext bindingOf:
+		 snippetViewModel resultButton text asString asSymbol) value:
+		shellCommandResult.
 	progressButton := snippetViewModel progressButton.
 	progressButton
 		visibility: BlVisibility visible;
